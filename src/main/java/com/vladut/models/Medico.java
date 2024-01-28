@@ -2,6 +2,9 @@ package com.vladut.models;
 
 import jakarta.persistence.*;
 
+import java.util.HashSet;
+import java.util.Set;
+
 @Entity
 @Table(name = "medico")
 public class Medico {
@@ -30,10 +33,13 @@ public class Medico {
     @JoinColumn(name = "idDepartamento")
     private Departamento departamento;
 
+    @ManyToMany(mappedBy = "medicos")
+    private Set<Paciente> pacientes = new HashSet<>();
+
     public Medico() {
     }
 
-    public Medico(int idMedico, String nombre, String prApellido, String sgApellido, String especialidad, String telefono, String email, Departamento departamento) {
+    public Medico(int idMedico, String nombre, String prApellido, String sgApellido, String especialidad, String telefono, String email, Departamento departamento, Set<Paciente> pacientes) {
         this.idMedico = idMedico;
         this.nombre = nombre;
         this.prApellido = prApellido;
@@ -42,6 +48,7 @@ public class Medico {
         this.telefono = telefono;
         this.email = email;
         this.departamento = departamento;
+        this.pacientes = pacientes;
     }
 
     public int getIdMedico() {
@@ -102,6 +109,14 @@ public class Medico {
 
     public Departamento getDepartamento() {
         return departamento;
+    }
+
+    public Set<Paciente> getPacientes() {
+        return pacientes;
+    }
+
+    public void setPacientes(Set<Paciente> pacientes) {
+        this.pacientes = pacientes;
     }
 
     public void setDepartamento(Departamento departamento) {
