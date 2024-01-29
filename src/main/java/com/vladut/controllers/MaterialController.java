@@ -69,37 +69,37 @@ public class MaterialController {
         return new ResponseEntity<>(materialRepository.save(temp), HttpStatus.CREATED);
     }
 
-    @PutMapping("/city/{id}")
-    public ResponseEntity<City> updateCity(@PathVariable("id") int id, @RequestBody City city) {
-        City temp = cityRepository.findById(id).orElse(null);
+    @PutMapping("/material/{id}")
+    public ResponseEntity<Material> updateMaterial(@PathVariable("id") int id, @RequestBody Material material) {
+        Material temp = materialRepository.findById(id).orElse(null);
         if (temp == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        temp.setCity(city.getCity());
-        if (city.getCountry() != null) {
-            Country country = countryRepository.findById(city.getCountry().getCountryId()).orElse(null);
-            if (country != null) {
-                temp.setCountry(country);
+        temp.setNombre(material.getNombre());
+        if (material.getDepartamento() != null) {
+            Departamento departamento = departamentoRepository.findById(material.getDepartamento().getIdDepartamento()).orElse(null);
+            if (departamento != null) {
+                temp.setDepartamento(departamento);
             }
         }
-        return new ResponseEntity<>(cityRepository.save(temp), HttpStatus.OK);
+        return new ResponseEntity<>(materialRepository.save(temp), HttpStatus.OK);
     }
 
     // Borro todas las ciudades de un país, ojo con esto que nos cargamos los datos a lo loco
-    @DeleteMapping("/country/{id}/city")
+    @DeleteMapping("/departamento/{id}/material")
     public ResponseEntity<HttpStatus> deleteCityCountry(@PathVariable("id") int id) {
         // No recupero el country, me basta con saber que existe
-        if (!countryRepository.existsById(id)) {
+        if (!departamentoRepository.existsById(id)) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         } else {
-            cityRepository.deleteByCountryCountryId(id);
+            materialRepository.deleteByDepartamentoDepartamentoId(id);
             return new ResponseEntity<>(HttpStatus.OK);
         }
     }
 
-    @DeleteMapping("/city/{id}")
-    public ResponseEntity<HttpStatus> deleteCity(@PathVariable("id") int id) {
-        cityRepository.deleteById(id);
+    @DeleteMapping("/material/{id}")
+    public ResponseEntity<HttpStatus> deleteMaterial(@PathVariable("id") int id) {
+        materialRepository.deleteById(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }

@@ -11,5 +11,5 @@ public interface MaterialRepository extends JpaRepository<Material, Integer> {
     List<Material> findByDepartamentoDepartamentoId(int id);
 
     @Transactional
-    void deleteByMaterialMaterialId(int id);
+    void deleteByDepartamentoDepartamentoId(int id);
 }

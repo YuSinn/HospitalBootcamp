@@ -20,6 +20,14 @@ public class Material {
     @JoinColumn(name = "idDepartamento")
     private Departamento departamento;
 
+    public Departamento getDepartamento() {
+        return departamento;
+    }
+
+    public void setDepartamento(Departamento departamento) {
+        this.departamento = departamento;
+    }
+
     public Material() {
     }
 
