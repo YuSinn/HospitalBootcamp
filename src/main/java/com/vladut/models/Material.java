@@ -3,12 +3,12 @@ package com.vladut.models;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "inventario")
-public class Inventario {
+@Table(name = "material")
+public class Material {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int idInventario;
+    private int idMaterial;
     @Column(name = "nombre",nullable = false)
     private String nombre;
     @Column(name = "cantidad", nullable = false)
@@ -16,30 +16,27 @@ public class Inventario {
     @Column(name = "descripcion", nullable = false)
     private String descripcion;
 
-    public Inventario() {
+    @ManyToOne
+    @JoinColumn(name = "idDepartamento")
+    private Departamento departamento;
+
+    public Material() {
     }
 
-    public Inventario(int idInventario, String nombre, int cantidad, String descripcion) {
-        this.idInventario = idInventario;
+    public Material(int idMaterial, String nombre, int cantidad, String descripcion, Departamento departamento) {
+        this.idMaterial = idMaterial;
         this.nombre = nombre;
         this.cantidad = cantidad;
         this.descripcion = descripcion;
+        this.departamento = departamento;
     }
 
-    public int getIdInventario() {
-        return idInventario;
+    public int getIdMaterial() {
+        return idMaterial;
     }
 
-    public void setIdInventario(int idInventario) {
-        this.idInventario = idInventario;
-    }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public void setIdMaterial(int idMaterial) {
+        this.idMaterial = idMaterial;
     }
 
     public int getCantidad() {
@@ -58,13 +55,22 @@ public class Inventario {
         this.descripcion = descripcion;
     }
 
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
     @Override
     public String toString() {
-        return "Inventario{" +
-                "idInventario=" + idInventario +
+        return "Material{" +
+                "idMaterial=" + idMaterial +
                 ", nombre='" + nombre + '\'' +
                 ", cantidad=" + cantidad +
                 ", descripcion='" + descripcion + '\'' +
+                ", departamento=" + departamento +
                 '}';
     }
 }
