@@ -35,7 +35,7 @@ public class MaterialController {
      * @return
      */
     @GetMapping("/material/{id}")
-    public ResponseEntity<Material> getCity(@PathVariable("id") int id) {
+    public ResponseEntity<Material> getMaterial(@PathVariable("id") int id) {
         Material material = materialRepository.findById(id)
                 .orElse(null);
         if (material == null) {
@@ -45,13 +45,16 @@ public class MaterialController {
         }
     }
 
-    // Utilizo el formato estándar de la API REST para obtener los registros relacionados
-    // de otra tabla. El campo id va enmedio de las dos
+    @GetMapping("/material/por-nombre/{nombre}")
+    public ResponseEntity<List<Material>> getMaterialesPorNombre(@PathVariable String nombre) {
+        List<Material> materiales = materialRepository.findByNombreStartingWith(nombre);
+        return new ResponseEntity<>(materiales, HttpStatus.OK);
+    }
     @GetMapping("/departamento/{id}/material")
     public ResponseEntity<List<Material>> getAllByDepartment(@PathVariable("id") int id) {
         List<Material> res = new ArrayList<>();
         // Usamos la consulta de JPA para buscar por el id de country
-        materialRepository.findByDepartamentoDepartamentoId(id).forEach(res::add);
+        materialRepository.findByDepartamentoIddepartamento(id).forEach(res::add);
         if (res.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
@@ -85,14 +88,13 @@ public class MaterialController {
         return new ResponseEntity<>(materialRepository.save(temp), HttpStatus.OK);
     }
 
-    // Borro todas las ciudades de un país, ojo con esto que nos cargamos los datos a lo loco
     @DeleteMapping("/departamento/{id}/material")
-    public ResponseEntity<HttpStatus> deleteCityCountry(@PathVariable("id") int id) {
-        // No recupero el country, me basta con saber que existe
+    public ResponseEntity<HttpStatus> deleteMaterialDepartamento(@PathVariable("id") int id) {
+
         if (!departamentoRepository.existsById(id)) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         } else {
-            materialRepository.deleteByDepartamentoDepartamentoId(id);
+            materialRepository.deleteByDepartamentoIddepartamento(id);
             return new ResponseEntity<>(HttpStatus.OK);
         }
     }

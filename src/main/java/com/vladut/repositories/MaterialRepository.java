@@ -8,8 +8,8 @@ import jakarta.transaction.Transactional;
 import java.util.List;
 
 public interface MaterialRepository extends JpaRepository<Material, Integer> {
-    List<Material> findByDepartamentoDepartamentoId(int id);
-
+    List<Material> findByDepartamentoIddepartamento(int id);
+    List<Material> findByNombreStartingWith(String nombre);
     @Transactional
-    void deleteByDepartamentoDepartamentoId(int id);
+    void deleteByDepartamentoIddepartamento(int id);
 }

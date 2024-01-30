@@ -7,7 +7,8 @@ import jakarta.persistence.*;
 public class Departamento {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int idDepartamento;
+    @Column(name = "iddepartamento")
+    private int iddepartamento;
 
     @Column(name = "nombre", nullable = false)
     private String nombre;
@@ -15,26 +16,22 @@ public class Departamento {
     @Column(name = "descripcion", nullable = false)
     private String descripcion;
 
-    @OneToOne
-    @JoinColumn(name = "idInventario")
-    private Inventario inventario;
 
     public Departamento() {
     }
 
-    public Departamento(int idDepartamento, String nombre, String descripcion, Inventario inventario) {
-        this.idDepartamento = idDepartamento;
+    public Departamento(int idDepartamento, String nombre, String descripcion) {
+        this.iddepartamento = idDepartamento;
         this.nombre = nombre;
         this.descripcion = descripcion;
-        this.inventario = inventario;
     }
 
     public int getIdDepartamento() {
-        return idDepartamento;
+        return iddepartamento;
     }
 
     public void setIdDepartamento(int idDepartamento) {
-        this.idDepartamento = idDepartamento;
+        this.iddepartamento = idDepartamento;
     }
 
     public String getNombre() {
@@ -53,21 +50,12 @@ public class Departamento {
         this.descripcion = descripcion;
     }
 
-    public Inventario getInventario() {
-        return inventario;
-    }
-
-    public void setInventario(Inventario inventario) {
-        this.inventario = inventario;
-    }
-
     @Override
     public String toString() {
         return "Departamento{" +
-                "idDepartamento=" + idDepartamento +
+                "idDepartamento=" + iddepartamento +
                 ", nombre='" + nombre + '\'' +
                 ", descripcion='" + descripcion + '\'' +
-                ", inventario=" + inventario +
                 '}';
     }
 }

@@ -8,6 +8,7 @@ public class Material {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "idmaterial")
     private int idMaterial;
     @Column(name = "nombre",nullable = false)
     private String nombre;
@@ -17,7 +18,7 @@ public class Material {
     private String descripcion;
 
     @ManyToOne
-    @JoinColumn(name = "idDepartamento")
+    @JoinColumn(name = "iddepartamento")
     private Departamento departamento;
 
     public Departamento getDepartamento() {
@@ -43,8 +44,8 @@ public class Material {
         return idMaterial;
     }
 
-    public void setIdMaterial(int idMaterial) {
-        this.idMaterial = idMaterial;
+    public void setIdMaterial(int idmaterial) {
+        this.idMaterial = idmaterial;
     }
 
     public int getCantidad() {
