@@ -11,18 +11,19 @@ import java.util.Set;
 public class Paciente {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "idpaciente")
     private int idPaciente;
 
     @Column(name = "nombre",nullable = false)
     private String nombre;
 
-    @Column(name = "prApellido", nullable = false)
+    @Column(name = "prapellido", nullable = false)
     private String prApellido;
 
-    @Column(name = "sgApellido", nullable = true)
+    @Column(name = "sgapellido", nullable = true)
     private String sgApellido;
 
-    @Column(name="fechaNacimiento", nullable = false)
+    @Column(name="fechanacimiento", nullable = false)
     private Date fechaNacimiento;
 
     @Column(name="genero")
@@ -40,15 +41,15 @@ public class Paciente {
     @ManyToMany
     @JoinTable(
             name = "asignacion_paciente_medico",
-            joinColumns = @JoinColumn(name = "idPaciente"),
-            inverseJoinColumns = @JoinColumn(name = "idMedico")
+            joinColumns = @JoinColumn(name = "idpaciente"),
+            inverseJoinColumns = @JoinColumn(name = "idmedico")
     )
     private Set<Medico> medicos = new HashSet<>();
 
     public Paciente() {
     }
 
-    public Paciente(int idPaciente, String nombre, String prApellido, String sgApellido, Date fechaNacimiento, String genero, String direccion, String telefono, String email, Set<Medico> medicos) {
+    public Paciente(int idPaciente, String nombre, String prApellido, String sgApellido, Date fechaNacimiento, String genero, String direccion, String telefono, String email ) {
         this.idPaciente = idPaciente;
         this.nombre = nombre;
         this.prApellido = prApellido;
@@ -58,7 +59,6 @@ public class Paciente {
         this.direccion = direccion;
         this.telefono = telefono;
         this.email = email;
-        this.medicos = medicos;
     }
 
     public int getIdPaciente() {

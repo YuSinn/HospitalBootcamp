@@ -1,5 +1,6 @@
 package com.vladut.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.util.HashSet;
@@ -10,14 +11,15 @@ import java.util.Set;
 public class Medico {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "idmedico")
     private int idMedico;
     @Column(name = "nombre", nullable = false)
     private String nombre;
 
-    @Column(name = "prApellido", nullable = false)
+    @Column(name = "prapellido", nullable = false)
     private String prApellido;
 
-    @Column(name = "sgApellido", nullable = true)
+    @Column(name = "sgapellido", nullable = true)
     private String sgApellido;
 
     @Column(name = "especialidad", nullable = false)
@@ -30,16 +32,17 @@ public class Medico {
     private String email;
 
     @ManyToOne
-    @JoinColumn(name = "idDepartamento")
+    @JoinColumn(name = "iddepartamento")
     private Departamento departamento;
 
     @ManyToMany(mappedBy = "medicos")
+    @JsonIgnore
     private Set<Paciente> pacientes = new HashSet<>();
 
     public Medico() {
     }
 
-    public Medico(int idMedico, String nombre, String prApellido, String sgApellido, String especialidad, String telefono, String email, Departamento departamento, Set<Paciente> pacientes) {
+    public Medico(int idMedico, String nombre, String prApellido, String sgApellido, String especialidad, String telefono, String email, Departamento departamento) {
         this.idMedico = idMedico;
         this.nombre = nombre;
         this.prApellido = prApellido;
@@ -48,7 +51,6 @@ public class Medico {
         this.telefono = telefono;
         this.email = email;
         this.departamento = departamento;
-        this.pacientes = pacientes;
     }
 
     public int getIdMedico() {
