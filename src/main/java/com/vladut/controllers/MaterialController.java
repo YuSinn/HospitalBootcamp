@@ -53,7 +53,7 @@ public class MaterialController {
     @GetMapping("/departamento/{id}/material")
     public ResponseEntity<List<Material>> getAllByDepartment(@PathVariable("id") int id) {
         List<Material> res = new ArrayList<>();
-        // Usamos la consulta de JPA para buscar por el id de country
+
         materialRepository.findByDepartamentoIddepartamento(id).forEach(res::add);
         if (res.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);

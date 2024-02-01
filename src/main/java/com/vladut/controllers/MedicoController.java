@@ -48,7 +48,7 @@ public class MedicoController {
 
         return new ResponseEntity<>(medicos, HttpStatus.OK);
     }
-    @GetMapping("/especialidad")
+    @GetMapping("/medicos/especialidad")
     public ResponseEntity<List<Medico>> getMedicosByEspecialidad(
             @RequestParam(name = "t1") String t1,
             @RequestParam(name = "t2") String t2) {
